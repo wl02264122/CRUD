@@ -60,10 +60,12 @@ const data = {
             let username = document.querySelector("#username").value;
             let password = document.querySelector("#password").value;
             const starCountRef = ref(database, 'users/' + username);
-            onValue(starCountRef, (snapshot) => {
+            onValue(starCountRef, (snapshot) => { 
                 const data = snapshot.val();
                 if(password === data.password){
                     alert('帳號密碼正確，正在登陸...');
+                }else{
+                    alert('帳號或密碼錯誤，請稍後重試。')
                 }
             });
         })
