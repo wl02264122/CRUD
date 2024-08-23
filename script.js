@@ -1,6 +1,6 @@
 // Create
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCwGdR-3aFaKU6OY_qZDbbyyX9E5vkFOOg",
@@ -14,11 +14,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-const usersRef = ref(database, 'users');
+// const usersRef = ref(database, 'users');
 
 let submit = document.querySelector(".submit-box");
 let login = document.querySelector(".login-box");
-
+let updates = document.querySelector(".update-box");
 const data = {
     create() {
         try {
@@ -42,7 +42,6 @@ const data = {
                 }
                 set(ref(database, 'users/' + usernameInfo), {
                     email: emailInfo,
-                    username: usernameInfo,
                     password: passwordInfo
                 })
                     .then(function () {
@@ -53,22 +52,47 @@ const data = {
             })
         }
         catch { }
-        console.log('Not register web page');
     },
     login() {
-        login.addEventListener("click", () => {
-            let username = document.querySelector("#username").value;
-            let password = document.querySelector("#password").value;
-            const starCountRef = ref(database, 'users/' + username);
-            onValue(starCountRef, (snapshot) => {
-                const data = snapshot.val();
-                if(password === data.password){
-                    alert('帳號密碼正確，正在登陸...');
-                }
-            });
-        })
+        try {
+            login.addEventListener("click", () => {
+                let username = document.querySelector("#username").value;
+                let password = document.querySelector("#password").value;
+                const starCountRef = ref(database, 'users/' + username);
+                onValue(starCountRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (password === data.password) {
+                        alert('帳號密碼正確，正在登陸...');
+                    } else {
+                        alert("帳號或密碼錯誤，請稍後再試。");
+                    }
+                });
+            })
+        }
+        catch { }
+    },
+    changePassword() {
+        try{
+            updates.addEventListener("click", () => {
+                let username = document.querySelector("#username").value;
+                let oldPassword = document.querySelector("#old-password").value;
+                let newPassword = document.querySelector("#new-password").value;
+                const userRef = ref(database, 'users/' + username);
+                get(userRef) .then((snapshot) => {
+                    const data = snapshot.val();
+                    if(oldPassword === data.password){
+                        update(userRef, { password: newPassword })
+                        alert("密碼修改完成")
+                    }else{
+                        alert("帳號或密碼錯誤，請稍後再試。")
+                    }
+                })
+            })
+        }
+        catch{}
     }
 }
 
 data.create();
 data.login();
+data.changePassword();
