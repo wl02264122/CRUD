@@ -1,6 +1,6 @@
 // Create
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, update, get, remove } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCwGdR-3aFaKU6OY_qZDbbyyX9E5vkFOOg",
@@ -19,6 +19,11 @@ const database = getDatabase(app);
 let submit = document.querySelector(".submit-box");
 let login = document.querySelector(".login-box");
 let updates = document.querySelector(".update-box");
+const hiddenFc = {
+    deleteCheckBox() {
+
+    }
+}
 const data = {
     create() {
         try {
@@ -72,27 +77,63 @@ const data = {
         catch { }
     },
     changePassword() {
-        try{
+        try {
             updates.addEventListener("click", () => {
                 let username = document.querySelector("#username").value;
                 let oldPassword = document.querySelector("#old-password").value;
                 let newPassword = document.querySelector("#new-password").value;
                 const userRef = ref(database, 'users/' + username);
-                get(userRef) .then((snapshot) => {
+                get(userRef).then((snapshot) => {
                     const data = snapshot.val();
-                    if(oldPassword === data.password){
+                    if (oldPassword === data.password) {
                         update(userRef, { password: newPassword })
                         alert("密碼修改完成")
-                    }else{
+                    } else {
                         alert("帳號或密碼錯誤，請稍後再試。")
                     }
                 })
             })
         }
-        catch{}
+        catch { }
+    },
+    deleteAcount() {
+        let deleteBtn = document.querySelector(".delete-box");
+        let checkBox = document.querySelector(".check-box");
+        let confirmBtn = document.querySelector("#confirm");
+        let cancelBtn = document.querySelector("#cancel");
+        deleteBtn.addEventListener("click", () => {
+            let username = document.querySelector("#username").value;
+            const password = document.querySelector("#password").value;
+            const userRef = ref(database, 'users/' + username);
+
+            get(userRef).then((snapshot) => {
+                const data = snapshot.val();
+
+                if (data.username === username && data.password === password) {
+                    checkBox.hidden = false;
+                    setTimeout(() => {
+                        checkBox.style.top = "25%";
+                    }, 0);
+                    confirmBtn.addEventListener("click", () => {
+                        let username = document.querySelector("#username").value;
+                        remove(ref(database, "users/" + username));
+                        checkBox.hidden = true;
+                        alert("註銷成功!");
+                    });
+                    cancelBtn.addEventListener("click", () => {
+                        checkBox.hidden = true;
+                        checkBox.style.transition = "0.5s ease";
+                        checkBox.style.top = "0";
+                    })
+                } else {
+                    alert("帳號或密碼錯誤，請稍後在試。");
+                }
+            })
+        })
     }
 }
 
 data.create();
 data.login();
 data.changePassword();
+data.deleteAcount();

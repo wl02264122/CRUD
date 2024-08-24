@@ -17,23 +17,22 @@
     </div>
     <div class="base">
         <div class="container">
-            <div class="title" style="color: rgb(209, 84, 146);">Change password
-                <div class="info">Please fill in this form to login your acount.</div>
+            <div class="title" style="color: rgb(18, 99, 165);">Remove Account
             </div>
             <div class="acinfo">
-                <div class="acinfo-title" style="color: black;">Username<br>
+                <div class="acinfo-title" style="color: rgb(107, 40, 173);">Username<br>
                     <input id="username" placeholder="Username" type="text" required>
                 </div>
-                <div class="acinfo-title" style="color: black;">
-                    <span style="color: aquamarine;">Old</span> Password<br>
-                    <input id="old-password" placeholder="Password" type="text" required>
-                </div>
-                <div class="acinfo-title" style="color: black;">
-                    <span style="color: crimson;">New</span> Password<br>
-                    <input id="new-password" placeholder="Password" type="text" required>
+                <div class="acinfo-title" style="color: rgb(188, 60, 171);">Password<br>
+                    <input id="password" placeholder="Password" type="text" required>
                 </div>
             </div>
-            <button type="submit" class="update-box">Login</button>
+            <button type="submit" class="delete-box">Login</button>
+            <div class="check-box" hidden>
+                <span style="color: red;">確定要刪除帳號嗎?</span><br>
+                <button id="confirm">確定</button>
+                <button id="cancel">取消</button>
+            </div>
         </div>
     </div>
 </body>
