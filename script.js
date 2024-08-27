@@ -19,11 +19,7 @@ const database = getDatabase(app);
 let submit = document.querySelector(".submit-box");
 let login = document.querySelector(".login-box");
 let updates = document.querySelector(".update-box");
-const hiddenFc = {
-    deleteCheckBox() {
 
-    }
-}
 const data = {
     create() {
         try {
