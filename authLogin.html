@@ -13,23 +13,23 @@
         <a href="./changePassword.html" class="head-btn" id="change-password-btn">修改密碼</a>
         <a href="./authRegister.html" class="head-btn" id="auth-create-btn">Auth註冊</a>
         <a href="./authLogin.html" class="head-btn" id="auth-login-btn">Auth登陸</a>
-    </div>  
+    </div>
     <div class="base">
         <div class="container">
-            <div class="title" style="color: blueviolet;">Login
-                <div class="info" style="color: brown;">Please fill in this form to login your acount.</div>
+            <div class="title" style="color: darkmagenta;">Authentication <span style="color: rgb(220, 124, 218);">login</span>
+                <div class="info" style="color:deeppink">Please fill in this form to create acount.</div>
             </div>
             <div class="acinfo">
-                <div class="acinfo-title" style="color:rgb(120, 68, 120);">Username<br>
-                    <input id="username" placeholder="Username" type="text" required>
+                <div class="acinfo-title" style="color: rgb(174, 152, 29);">Email<br>
+                    <input id="auth-email" placeholder="Email" type="text" required>
                 </div>
-                <div class="acinfo-title" style="color:rgb(120, 68, 120);">Password<br>
-                    <input id="password" placeholder="Password" type="text" required>
+                <div class="acinfo-title" style="color:magenta;">Password<br>
+                    <input id="auth-password" placeholder="Password" type="text" required>
                 </div>
             </div>
-            <button type="submit" id="login-submit" class="submit-box">Login</button>
-        </div>
-    </div>
+            <button type="submit" id="auth-login-submit" class="submit-box">register</button>
+        </div> 
+    </div>    
 </body>
 </html>
-<script type="module" src="./script.js"></script>
+<script type="module" src="./script.js" defer></script>

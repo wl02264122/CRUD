@@ -1,6 +1,7 @@
 // Create
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, update, get, remove } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { getDatabase, ref, set, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { getAuth,connectAuthEmulator, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCwGdR-3aFaKU6OY_qZDbbyyX9E5vkFOOg",
@@ -14,16 +15,18 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
-// const usersRef = ref(database, 'users');
+const auth = getAuth(app);
 
-let submit = document.querySelector(".submit-box");
-let login = document.querySelector(".login-box");
-let updates = document.querySelector(".update-box");
+const createSubmit = document.querySelector("#register-submit");
+const login = document.querySelector("#login-submit");
+const updates = document.querySelector("#update-submit");
+const authCreateSubmit = document.querySelector("#auth-register-submit");
+const authLoginSubmit = document.querySelector("#auth-login-submit");
 
 const data = {
     create() {
         try {
-            submit.addEventListener("click", (e) => {
+            createSubmit.addEventListener("click", (e) => {
                 let emailInfo = document.querySelector("#email").value;
                 let usernameInfo = document.querySelector("#username").value;
                 let passwordInfo = document.querySelector("#password").value;
@@ -91,45 +94,63 @@ const data = {
             })
         }
         catch { }
-    },
-    deleteAcount() {
-        let deleteBtn = document.querySelector(".delete-box");
-        let checkBox = document.querySelector(".check-box");
-        let confirmBtn = document.querySelector("#confirm");
-        let cancelBtn = document.querySelector("#cancel");
-        deleteBtn.addEventListener("click", () => {
-            let username = document.querySelector("#username").value;
-            const password = document.querySelector("#password").value;
-            const userRef = ref(database, 'users/' + username);
-
-            get(userRef).then((snapshot) => {
-                const data = snapshot.val();
-
-                if (data.username === username && data.password === password) {
-                    checkBox.hidden = false;
-                    setTimeout(() => {
-                        checkBox.style.top = "25%";
-                    }, 0);
-                    confirmBtn.addEventListener("click", () => {
-                        let username = document.querySelector("#username").value;
-                        remove(ref(database, "users/" + username));
-                        checkBox.hidden = true;
-                        alert("註銷成功!");
-                    });
-                    cancelBtn.addEventListener("click", () => {
-                        checkBox.hidden = true;
-                        checkBox.style.transition = "0.5s ease";
-                        checkBox.style.top = "0";
-                    })
-                } else {
-                    alert("帳號或密碼錯誤，請稍後在試。");
-                }
-            })
-        })
     }
 }
+const userAuth = {
+    
+    creatNewUser() {
+        try{
+            authCreateSubmit.addEventListener("click", (event) => {
+                const email = document.querySelector("#auth-email").value;
+                const password = document.querySelector("#auth-password").value;
+                const username = document.querySelector("#auth-username").value;
+                console.log('email:'+email+'password:'+password+'username:'+username);
+                
+                try{
+                    createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        alert("創建帳戶中...");
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        alert("發生未知錯誤");
+                        console.log(errorCode, errorMessage);
+                    })}
+                catch{
+                    console.log(error);
+                }
+            })
+        }catch{
+            
+        }
+        
+    },
 
+    loginNewUser(){
+        try{
+            authLoginSubmit.addEventListener("click",(event)=>{
+            const email = document.querySelector("#auth-email").value;
+            const password = document.querySelector("#auth-password").value;
+            console.log('email:'+email+'password:'+password);
+                signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    alert("登陸帳戶中...");
+                    window.location.href = "grand.html";
+                })
+                .catch((error) =>{
+                    alert("發生未知錯誤");
+                    console.log(error.code, error.message);
+                })
+            })
+        }catch{
+        }
+    }
+}
 data.create();
 data.login();
 data.changePassword();
-data.deleteAcount();
+userAuth.creatNewUser();
+userAuth.loginNewUser();

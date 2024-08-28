@@ -3,7 +3,7 @@
 }
 
 body {
-    background-color: #dcc1a5;
+    background-color: #dbc4ac;
     /* display: flex; */
     justify-content: center;
     position: relative;
@@ -13,7 +13,7 @@ body {
 
 .head {
     width: 100%;
-    height: 100px;
+    height: 140px;
     background: linear-gradient(#e2a96c, 80%, #dcc1a5);
     background-color: #e2a96c;
     position: relative;
@@ -31,7 +31,7 @@ body {
     margin-right: 20px;
     background-color: #fff;
     position: relative;
-    width: 100px;
+    width: 120px;
     height: 30px;
     text-align: center;
     border: 1px solid black;
@@ -43,18 +43,17 @@ body {
     color: hotpink;
 }
 
-.base {
+.base{
     display: flex;
     justify-content: center;
 }
-
 .container {
     width: 600px;
     height: 450px;
     border: 1px solid black;
     border-radius: 12px;
     padding: 20px;
-    background-color: rgba(169, 190, 190, 0.761);
+    background-color: rgba(114, 213, 213, 0.761);
     position: relative;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
     top: 2vh;
@@ -107,89 +106,4 @@ body {
     font: 300 24px/1 Helvetica;
     background-color: #97e364;
     border-radius: 4px;
-}
-
-.login-box {
-    position: relative;
-    top: 10%;
-    padding: 20px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    font: 300 24px/1 Helvetica;
-    background-color: #97e364;
-    border-radius: 4px;
-    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
-}
-
-.update-box {
-    position: relative;
-    top: 10%;
-    padding: 20px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    font: 300 24px/1 Helvetica;
-    background-color: #97e364;
-    border-radius: 4px;
-    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
-}
-
-.delete-box {
-    position: relative;
-    top: 10%;
-    padding: 20px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    font: 300 24px/1 Helvetica;
-    background-color: #97e364;
-    border-radius: 4px;
-    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.3);
-}
-
-.check-box {
-    position: absolute;
-    background-color: #272727e7;
-    width: 50%;
-    height: 50%;
-    top: 0;
-    left: 25%;
-    border-radius: 12px;
-    transition: 0.5s ease;
-    padding: 5px;
-    text-align: center;
-}
-
-.check-box span {
-    font-size: 24px;
-    position: relative;
-    top: 20%;
-    font-weight: 800;
-}
-
-.check-box button {
-    position: relative;
-    transition: 0.5s ease;
-    top: 40%;
-    padding: 24px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-radius: 4px;
-    background-color: #fff;
-    border: 1px solid black;
-    cursor: pointer;
-}
-.check-box button:hover{
-    background-color: #dedede;
-}
-
-.check-box #confirm {
-    font-size: 16px;
-    margin-right: 16px;
-    color: rgb(120, 182, 26);
-    font-weight: 600;
-}
-.check-box #cancel {
-    font-size: 16px;
-    margin-left: 16px;
-    color: red;
-    font-weight: 600;
 }
